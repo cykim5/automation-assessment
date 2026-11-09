@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Automation Assessment</title>
+  <meta name="description" content="Score which tasks in a small manufacturing operation are worth automating with robots, and in what order.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="intro">
+      <p class="eyebrow">Physical AI deployment</p>
+      <h1>Which tasks should you automate first?</h1>
+      <p class="lede">List the tasks in your operation, rate them, and get a ranked shortlist. Each task is scored on two things: how feasible it is for a robot today, and whether it's worth it for the business.</p>
+    </header>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>1. Your tasks</h2>
+        <div class="row-actions">
+          <button id="add" class="btn primary" type="button">+ Add task</button>
+          <button id="example" class="btn" type="button">Load example</button>
+          <button id="clear" class="btn ghost" type="button">Clear</button>
+        </div>
+      </div>
+      <p class="hint">Feasibility ratings go from 1 (hard for a robot) to 5 (easy). Hover a column name to see what each number means.</p>
+      <div class="table-scroll">
+        <table id="tasks">
+          <thead>
+            <tr>
+              <th>Task</th>
+              <th title="1 = fine dexterity, force feedback, many steps. 5 = simple, repetitive motion like pick and place.">Action</th>
+              <th title="1 = soft, deformable, or highly varied items. 5 = rigid, uniform parts in known positions.">Object</th>
+              <th title="1 = cluttered, changing, shared with people. 5 = fixed cell, consistent lighting and layout.">Environment</th>
+              <th title="Labor hours spent on this task per week, across all shifts.">Hrs/week</th>
+              <th title="Fully loaded cost per labor hour (wage plus benefits).">$/hr</th>
+              <th title="Estimated installed cost of the robot system, including integration.">System $</th>
+              <th title="1 = nice to have. 5 = solves a hiring, safety, or quality problem the business cares about.">Strategic</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <p id="empty" class="empty">No tasks yet. Add one, or load the example to see how it works.</p>
+    </section>
+
+    <section class="panel">
+      <h2>2. Results</h2>
+      <div class="results">
+        <div class="chart-box">
+          <svg id="chart" viewBox="0 0 400 400" role="img" aria-label="Tasks plotted by feasibility and business fit"></svg>
+        </div>
+        <ol id="ranking" class="ranking"></ol>
+      </div>
+    </section>
+
+    <section class="panel method">
+      <h2>How the scoring works</h2>
+      <div class="method-grid">
+        <div>
+          <h3>Feasibility (can a robot do it?)</h3>
+          <p>The average of three ratings. <strong>Action</strong> is how complex the motion is. <strong>Object</strong> is how predictable the item being handled is. <strong>Environment</strong> is how controlled the workspace is. A task is only as easy as these three combined.</p>
+        </div>
+        <div>
+          <h3>Business fit (is it worth it?)</h3>
+          <p>60% <strong>financial return</strong>, based on payback time (system cost divided by yearly labor savings), and 40% <strong>strategic value</strong>, for things money doesn't capture, like a role you can't hire for or a safety risk.</p>
+        </div>
+        <div>
+          <h3>What to do with it</h3>
+          <p><strong>Quick wins</strong> are high on both and make good pilots. <strong>Strategic bets</strong> are valuable but hard, so watch the technology. <strong>Easy, low value</strong> tasks work but don't pay. Everything else, <strong>deprioritize</strong>.</p>
+        </div>
+      </div>
+      <p class="fine">Payback assumes the robot covers all listed hours. Real deployments rarely do on day one, so treat this as a first screen before an on-site assessment, not a final answer.</p>
+    </section>
+
+    <footer class="footer">
+      <p>Built by <a href="https://cykim5.github.io">Claire Kim</a>. Your data stays in your browser.</p>
+    </footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
