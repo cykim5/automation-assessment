@@ -171,11 +171,12 @@ function renderChart(scored) {
   const y = v => 16 + inner - ((v - lo) / (hi - lo)) * inner;
   const mid = 3.5;
 
+  // The four groups are named in the corners and split by dashed
+  // lines. They were four tinted fills with four dot colours, which
+  // carried the grouping in colour alone and said it twice.
   let out = `
-    <rect class="quad q-win" x="${x(mid)}" y="${y(hi)}" width="${x(hi) - x(mid)}" height="${y(mid) - y(hi)}"/>
-    <rect class="quad q-bet" x="${x(lo)}" y="${y(hi)}" width="${x(mid) - x(lo)}" height="${y(mid) - y(hi)}"/>
-    <rect class="quad q-easy" x="${x(mid)}" y="${y(mid)}" width="${x(hi) - x(mid)}" height="${y(lo) - y(mid)}"/>
-    <rect class="quad q-low" x="${x(lo)}" y="${y(mid)}" width="${x(mid) - x(lo)}" height="${y(lo) - y(mid)}"/>
+    <line class="divider" x1="${x(mid)}" y1="${y(lo)}" x2="${x(mid)}" y2="${y(hi)}"/>
+    <line class="divider" x1="${x(lo)}" y1="${y(mid)}" x2="${x(hi)}" y2="${y(mid)}"/>
     <text class="qlabel" x="${x(hi) - 6}" y="${y(hi) + 16}" text-anchor="end">Quick wins</text>
     <text class="qlabel" x="${x(lo) + 6}" y="${y(hi) + 16}">Strategic bets</text>
     <text class="qlabel" x="${x(hi) - 6}" y="${y(mid) + 16}" text-anchor="end">Easy, low value</text>

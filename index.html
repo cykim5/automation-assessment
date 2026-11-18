@@ -7,40 +7,60 @@
   <meta name="description" content="Score which tasks in a small manufacturing operation are worth automating with robots, and in what order.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <main class="wrap">
     <header class="intro">
-      <p class="eyebrow">Physical AI deployment</p>
       <h1>Which tasks should you automate first?</h1>
       <p class="lede">List the tasks in your operation, rate them, and get a ranked shortlist. Each task is scored on two things: how feasible it is for a robot today, and whether it's worth it for the business.</p>
     </header>
 
-    <section class="panel">
-      <div class="panel-head">
-        <h2>1. Your tasks</h2>
+    <section class="block">
+      <div class="block-head">
+        <h2>Your tasks</h2>
         <div class="row-actions">
-          <button id="add" class="btn primary" type="button">+ Add task</button>
-          <button id="example" class="btn" type="button">Load example</button>
+          <button id="add" class="btn" type="button">Add a task</button>
+          <button id="example" class="btn" type="button">Load the example</button>
           <button id="clear" class="btn ghost" type="button">Clear</button>
         </div>
       </div>
-      <p class="hint">Feasibility ratings go from 1 (hard for a robot) to 5 (easy). Hover a column name to see what each number means.</p>
+      <p class="hint">Ratings run from 1 to 5, where 1 is hard for a robot and 5 is easy.</p>
+
+      <details class="key">
+        <summary>What the ratings mean</summary>
+        <dl>
+          <dt>Action</dt>
+          <dd>1 is fine dexterity, force feedback and many steps. 5 is a simple repetitive motion like pick and place.</dd>
+          <dt>Object</dt>
+          <dd>1 is soft, deformable or highly varied items. 5 is rigid, uniform parts in known positions.</dd>
+          <dt>Environment</dt>
+          <dd>1 is cluttered, changing and shared with people. 5 is a fixed cell with consistent lighting and layout.</dd>
+          <dt>Hours a week</dt>
+          <dd>Labor hours spent on this task per week, across all shifts.</dd>
+          <dt>Cost an hour</dt>
+          <dd>Fully loaded cost per labor hour, wage plus benefits.</dd>
+          <dt>System cost</dt>
+          <dd>Estimated installed cost of the robot system, including integration.</dd>
+          <dt>Strategic</dt>
+          <dd>1 is nice to have. 5 solves a hiring, safety or quality problem the business already cares about.</dd>
+        </dl>
+      </details>
+
       <div class="table-scroll">
         <table id="tasks">
           <thead>
             <tr>
-              <th>Task</th>
-              <th title="1 = fine dexterity, force feedback, many steps. 5 = simple, repetitive motion like pick and place.">Action</th>
-              <th title="1 = soft, deformable, or highly varied items. 5 = rigid, uniform parts in known positions.">Object</th>
-              <th title="1 = cluttered, changing, shared with people. 5 = fixed cell, consistent lighting and layout.">Environment</th>
-              <th title="Labor hours spent on this task per week, across all shifts.">Hrs/week</th>
-              <th title="Fully loaded cost per labor hour (wage plus benefits).">$/hr</th>
-              <th title="Estimated installed cost of the robot system, including integration.">System $</th>
-              <th title="1 = nice to have. 5 = solves a hiring, safety, or quality problem the business cares about.">Strategic</th>
-              <th></th>
+              <th scope="col">Task</th>
+              <th scope="col">Action</th>
+              <th scope="col">Object</th>
+              <th scope="col">Environment</th>
+              <th scope="col">Hours a week</th>
+              <th scope="col">Cost an hour</th>
+              <th scope="col">System cost</th>
+              <th scope="col">Strategic</th>
+              <th scope="col"><span class="visually-hidden">Remove</span></th>
             </tr>
           </thead>
           <tbody></tbody>
@@ -49,8 +69,8 @@
       <p id="empty" class="empty">No tasks yet. Add one, or load the example to see how it works.</p>
     </section>
 
-    <section class="panel">
-      <h2>2. Results</h2>
+    <section class="block">
+      <h2>Results</h2>
       <div class="results">
         <div class="chart-box">
           <svg id="chart" viewBox="0 0 400 400" role="img" aria-label="Tasks plotted by feasibility and business fit"></svg>
@@ -59,7 +79,7 @@
       </div>
     </section>
 
-    <section class="panel method">
+    <section class="block method">
       <h2>How the scoring works</h2>
       <div class="method-grid">
         <div>
